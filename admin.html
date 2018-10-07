@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Wells Page</title>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<style>
+        .content {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 10px;
+        }
+
+        body {
+            background: gray;
+        }
+
+        #seenbut {
+        	background-color: red;
+        	float: right;
+        }
+
+        .unseenbut {
+        	background-color: green;
+        }
+
+        .combine {
+            display: flex;
+            justify-content: stretch;
+        }
+
+        .align {
+            margin: 25px;
+            float: right;
+        }
+
+   
+
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+
+<script type="text/javascript">
+     // Initialize Firebase
+    var config = {
+    apiKey: "AIzaSyCdx_IvJ9lPS6_ALd_A7h-BKqRtCFrgWIo",
+    authDomain: "career-reachout.firebaseapp.com",
+    databaseURL: "https://career-reachout.firebaseio.com",
+    projectId: "career-reachout",
+    storageBucket: "career-reachout.appspot.com",
+    };
+    firebase.initializeApp(config);
+
+	var messageRef = firebase.database().ref("users/lwells");
+	messageRef.on('value', function(snapshot) {
+	  updatethepage(snapshot.val());
+	});
+
+	function updatethepage(data) {
+		console.log(data);
+		obj = data;
+		
+		for (var post in obj) {
+			var node = document.createElement("LI");
+			
+			var nam = obj[post]["name"];
+			 var ema = obj[post]["email"];
+			var mess = obj[post]["message"];
+			var phonenum = obj[post]["cellnumber"];
+			var val = obj[post]["status"];
+
+		makeCard(nam, ema, mess, phonenum, val);
+		}
+	}
+
+
+	function makeCard(name, email, message, cellPhone, sta) {
+		var div1 = $("<div>"); 
+		div1.addClass("w3-container");
+
+
+		var div2  = $("<div>");
+		div2.addClass("w3-card-4");
+		div2.css("width", "100%");
+		var header = $("<header>");
+		header.addClass("w3-container w3-blue");
+		var h1 = $("<h1>");
+		h1.text(name);
+		header.append(h1);
+
+
+		var div3 = $("<div>");
+		div3.addClass("w3-container");
+		var p = $("<p>");
+		p.text(message);
+		div3.append(p);
+
+
+		var footer = $("<footer>");
+		footer.addClass("w3-container w3-blue");
+		var div4 = $("<div>");
+		div4.addClass("combine");
+
+		var p1 = $("<p>");
+		p1.text(cellPhone);
+		div4.append(p1);
+
+		var p2 = $("<pre>");
+		p2.text(" | ");
+		div4.append(p2);
+
+		var p3 = $("<p>");
+		p3.text(email);
+		div4.append(p3);
+
+		footer.append(div4);
+
+		
+
+		div2.append(header);
+		div2.append(div3);
+		div2.append(footer);
+
+		div1.append(div2);
+
+		var br = $("<br>");
+		div1.append($("<br>"));
+
+		div1.append($("<br>"));
+		div1.append($("<br>"));
+
+
+		$("#myList").prepend(div1);
+	}
+
+
+</script>
+<body>
+	<div class="content">
+		<div class="container" align="right">
+            <a href="index.html"><button type="button"><p style="color: black">Logout</p></button></a>
+        </div> 
+        <h1>Welcome Wells!</h1>
+		<h2 style="text-align: center;">Inbox</h2>
+
+	    <div id="myList">
+        </div>
+</body>
+</html>
+
+<!-- <div class="w3-container">
+  <div class="w3-card-4" style="width:100%;">
+    <header class="w3-container w3-blue">
+      <h1>Caleb Anyaeche</h1>
+    </header>
+
+    <div class="w3-container">
+      <p>I will like to meet you in your office today to get some waothersjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj.</p>
+    </div>
+
+    <footer class="w3-container w3-blue">
+      <h6>mobile: 4126166329</h6>
+    </footer>
+  </div>
+</div> -->
